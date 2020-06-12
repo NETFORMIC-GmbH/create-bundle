@@ -18,7 +18,7 @@
         "symfony/framework-bundle": "^2.8|^3.0",
         "symfony/assetic-bundle": "^2.1",
         "friendsofsymfony/rest-bundle": "^1.0|^2.0",
-        "midgard/createphp": "^1.1"
+        "midgard/createphp": "dev-master"
     },
     "suggest": {
         "jms/serializer-bundle": "Add support for advanced serialization capabilities (^0.12|^1.0)",
