@@ -35,6 +35,9 @@
             "Symfony\\Cmf\\Bundle\\CreateBundle\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        { "type": "vcs", "url": "git@github.com:NETFORMIC-GmbH/createphp.git" }
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
