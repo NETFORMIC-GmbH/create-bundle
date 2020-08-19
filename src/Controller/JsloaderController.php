@@ -118,7 +118,7 @@ class JsloaderController
      *
      * To use a different editor simply create a template following the naming
      * below:
-     *   CmfCreateBundle::includejsfiles-%editor%.html.twig
+     *   @CmfCreate/includejsfiles-%editor%.html.twig
      * and pass the appropriate editor name.
      *
      * @param Request $request the request object for the AccessChecker
@@ -132,7 +132,7 @@ class JsloaderController
 
         $view = new View();
 
-        $view->setTemplate(sprintf('CmfCreateBundle::includejsfiles-%s.html.twig', $editor));
+        $view->setTemplate(sprintf('@CmfCreate/includejsfiles-%s.html.twig', $editor));
 
         if ($this->browserFileHelper) {
             $helper = $this->browserFileHelper->getEditorHelper($editor);
