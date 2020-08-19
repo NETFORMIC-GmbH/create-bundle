@@ -118,7 +118,7 @@ class JsloaderController
      *
      * To use a different editor simply create a template following the naming
      * below:
-     *   @CmfCreate/includejsfiles-%editor%.html.twig
+     *   CmfCreate/includejsfiles-%editor%.html.twig
      * and pass the appropriate editor name.
      *
      * @param Request $request the request object for the AccessChecker
