@@ -6,18 +6,15 @@
 
     <route id="cmf_create_post_document" path="/symfony-cmf/create/document/{subject}" methods="POST">
         <default key="_controller">cmf_create.rest.controller:postDocumentAction</default>
-        <default key="_format">json</default>
     </route>
 
     <route id="cmf_create_put_document" path="/symfony-cmf/create/document/{subject}">
         <default key="_controller">cmf_create.rest.controller:updateDocumentAction</default>
-        <default key="_format">json</default>
         <requirement key="subject">.+</requirement>
     </route>
 
     <route id="cmf_create_workflows" path="/symfony-cmf/create/workflows/{subject}" methods="GET">
         <default key="_controller">cmf_create.rest.controller:workflowsAction</default>
-        <default key="_format">json</default>
         <requirement key="subject">.+</requirement>
     </route>
 

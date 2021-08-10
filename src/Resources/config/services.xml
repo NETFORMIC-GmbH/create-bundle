@@ -6,7 +6,6 @@
 
     <services>
         <service id="cmf_create.jsloader.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController" public="true">
-            <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="cmf_create.security.checker"/>
             <argument>%cmf_create.stanbol_url%</argument>
             <argument>%cmf_create.image_enabled%</argument>
@@ -32,7 +31,6 @@
         </service>
 
         <service id="cmf_create.rest.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\RestController" public="true">
-            <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="cmf_create.object_mapper"/>
             <argument type="service" id="cmf_create.rdf_type_factory"/>
             <argument type="service" id="cmf_create.rest.handler"/>

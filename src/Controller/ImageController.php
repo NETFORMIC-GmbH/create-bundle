@@ -12,8 +12,6 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Controller\FileController;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
@@ -24,10 +22,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ImageController extends FileController
 {
-    /**
-     * @var ViewHandlerInterface
-     */
-    protected $viewHandler;
 
     /**
      * @var AccessCheckerInterface
@@ -42,7 +36,6 @@ class ImageController extends FileController
      *                                                    images are located
      * @param MediaManagerInterface     $mediaManager
      * @param UploadFileHelperInterface $uploadFileHelper
-     * @param ViewHandlerInterface      $viewHandler
      * @param AccessCheckerInterface    $accessChecker
      */
     public function __construct(
@@ -52,7 +45,6 @@ class ImageController extends FileController
         $rootPath,
         MediaManagerInterface $mediaManager,
         UploadFileHelperInterface $uploadFileHelper,
-        ViewHandlerInterface $viewHandler,
         AccessCheckerInterface $accessChecker
     ) {
         if (!is_subclass_of($class, 'Symfony\Cmf\Bundle\MediaBundle\ImageInterface')) {
@@ -68,7 +60,6 @@ class ImageController extends FileController
             $mediaManager, $uploadFileHelper, 'THISSHOULDNEVERGETUSED', null
         );
 
-        $this->viewHandler = $viewHandler;
         $this->accessChecker = $accessChecker;
     }
 
@@ -80,9 +71,7 @@ class ImageController extends FileController
             'assets' => $images,
         );
 
-        $view = View::create($data);
-
-        return $this->viewHandler->handle($view);
+        return new JsonResponse($data);
     }
 
     /**
@@ -127,14 +116,7 @@ class ImageController extends FileController
      */
     public function showRelatedAction(Request $request)
     {
-        $links = array();
-        $data = array(
-            'links' => $links,
-        );
-
-        $view = View::create($data);
-
-        return $this->viewHandler->handle($view);
+        return new JsonResponse(['links' => []]);
     }
 
     protected function checkSecurityUpload(Request $request)

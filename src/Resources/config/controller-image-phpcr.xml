@@ -12,7 +12,6 @@
             <argument>%cmf_create.persistence.phpcr.image_basepath%</argument>
             <argument type="service" id="cmf_media.persistence.phpcr.manager" />
             <argument type="service" id="cmf_media.upload_image_helper" />
-            <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="cmf_create.security.checker"/>
         </service>
     </services>

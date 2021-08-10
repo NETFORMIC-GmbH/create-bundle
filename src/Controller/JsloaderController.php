@@ -11,8 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
-use FOS\RestBundle\View\ViewHandlerInterface;
-use FOS\RestBundle\View\View;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\File\BrowserFileHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +26,8 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  * The security context is optional to not fail with an exception if the
  * controller is loaded in a context without a firewall.
  */
-class JsloaderController
+class JsloaderController extends AbstractController
 {
-    /**
-     * @var ViewHandlerInterface
-     */
-    protected $viewHandler;
-
     /**
      * @var AccessCheckerInterface
      */
@@ -72,7 +66,6 @@ class JsloaderController
     /**
      * Create the Controller.
      *
-     * @param ViewHandlerInterface     $viewHandler
      * @param AccessCheckerInterface   $accessChecker
      * @param string                   $stanbolUrl         the url to use for the semantic
      *                                                     enhancer stanbol
@@ -90,7 +83,6 @@ class JsloaderController
      * @param BrowserFileHelper        $browserFileHelper  Used to determine image editing for ckeditor
      */
     public function __construct(
-        ViewHandlerInterface $viewHandler,
         AccessCheckerInterface $accessChecker,
         $stanbolUrl = false,
         $imageUploadEnabled = false,
@@ -99,7 +91,6 @@ class JsloaderController
         $editorBasePath = null,
         BrowserFileHelper $browserFileHelper = null
     ) {
-        $this->viewHandler = $viewHandler;
         $this->accessChecker = $accessChecker;
         $this->stanbolUrl = $stanbolUrl;
         $this->imageUploadEnabled = $imageUploadEnabled;
@@ -130,10 +121,6 @@ class JsloaderController
             return new Response('');
         }
 
-        $view = new View();
-
-        $view->setTemplate(sprintf('@CmfCreate/includejsfiles-%s.html.twig', $editor));
-
         if ($this->browserFileHelper) {
             $helper = $this->browserFileHelper->getEditorHelper($editor);
             $browseUrl = $helper ? $helper->getUrl() : false;
@@ -141,7 +128,9 @@ class JsloaderController
             $browseUrl = false;
         }
 
-        $view->setData(array(
+        return $this->render(
+            \sprintf('@CmfCreate/includejsfiles-%s.html.twig', $editor),
+            array(
                 'cmfCreateEditor' => $editor,
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (bool) $this->imageUploadEnabled,
@@ -151,7 +140,5 @@ class JsloaderController
                 'cmfCreateBrowseUrl' => $browseUrl,
             )
         );
-
-        return $this->viewHandler->handle($view);
     }
 }

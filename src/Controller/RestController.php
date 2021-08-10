@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\ViewHandlerInterface;
-use FOS\RestBundle\View\View;
 use Midgard\CreatePHP\Metadata\RdfTypeFactory;
 use Midgard\CreatePHP\RestService;
 use Midgard\CreatePHP\RdfMapperInterface;
@@ -26,13 +24,8 @@ use Midgard\CreatePHP\RdfMapperInterface;
 /**
  * Controller to handle content update callbacks.
  */
-class RestController
+class RestController extends AbstractController
 {
-    /**
-     * @var ViewHandlerInterface
-     */
-    protected $viewHandler;
-
     /**
      * @var RdfMapperInterface
      */
@@ -59,7 +52,6 @@ class RestController
     protected $forceRequestLocale;
 
     /**
-     * @param ViewHandlerInterface   $viewHandler
      * @param RdfMapperInterface     $rdfMapper
      * @param RdfTypeFactory         $typeFactory
      * @param RestService            $restHandler
@@ -67,14 +59,12 @@ class RestController
      * @param bool                   $forceRequestLocale
      */
     public function __construct(
-        ViewHandlerInterface $viewHandler,
         RdfMapperInterface $rdfMapper,
         RdfTypeFactory $typeFactory,
         RestService $restHandler,
         AccessCheckerInterface $accessChecker,
         $forceRequestLocale
     ) {
-        $this->viewHandler = $viewHandler;
         $this->rdfMapper = $rdfMapper;
         $this->typeFactory = $typeFactory;
         $this->restHandler = $restHandler;
@@ -122,9 +112,8 @@ class RestController
         $type = $this->typeFactory->getTypeByObject($model);
 
         $result = $this->restHandler->run($request->request->all(), $type, $subject, strtolower($request->getMethod()));
-        $view = View::create($result)->setFormat('json');
 
-        return $this->viewHandler->handle($view, $request);
+        return $this->json($result);
     }
 
     /**
@@ -148,9 +137,7 @@ class RestController
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
 
         if (!is_null($result)) {
-            $view = View::create($result)->setFormat('json');
-
-            return $this->viewHandler->handle($view, $request);
+            return $this->json($result);
         }
 
         return Response::create('The document was not created', 500);
@@ -174,8 +161,7 @@ class RestController
         }
 
         $result = $this->restHandler->getWorkflows($subject);
-        $view = View::create($result)->setFormat('json');
 
-        return $this->viewHandler->handle($view, $request);
+        return $this->json($result);
     }
 }
