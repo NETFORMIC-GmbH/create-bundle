@@ -58,7 +58,7 @@ class CmfCreateExtension extends Extension
             foreach ($container->getParameter('kernel.bundles') as $bundleShortName => $class) {
                 $bundle = new \ReflectionClass($class);
 
-                $rdfMappingDir = $container->getParameter('kernel.root_dir').'/Resources/'.$bundleShortName.'/rdf-mappings';
+                $rdfMappingDir = $container->getParameter('kernel.project_dir').'/app/Resources/'.$bundleShortName.'/rdf-mappings';
                 if (file_exists($rdfMappingDir)) {
                     $config['rdf_config_dirs'][] = $rdfMappingDir;
                 }
