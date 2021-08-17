@@ -13,6 +13,7 @@
             <argument type="service" id="cmf_media.persistence.phpcr.manager" />
             <argument type="service" id="cmf_media.upload_image_helper" />
             <argument type="service" id="cmf_create.security.checker"/>
+            <tag name="controller.service_arguments" />
         </service>
     </services>
 
