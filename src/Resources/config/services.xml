@@ -31,7 +31,7 @@
             <argument>%cmf_create.map%</argument>
         </service>
 
-        <service id="cmf_create.rest.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\RestController" public="true">
+        <service id="cmf_create.rest.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\RestController" public="true" autoconfigure="true" autowire="true">
             <argument type="service" id="cmf_create.object_mapper"/>
             <argument type="service" id="cmf_create.rdf_type_factory"/>
             <argument type="service" id="cmf_create.rest.handler"/>
