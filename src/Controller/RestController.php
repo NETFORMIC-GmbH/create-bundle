@@ -112,7 +112,8 @@ class RestController extends AbstractController
         $model = $this->getModelBySubject($request, $subject);
         $type = $this->typeFactory->getTypeByObject($model);
 
-        $result = $this->restHandler->run($request->request->all(), $type, $subject, strtolower($request->getMethod()));
+        $data = \json_decode($request->getContent(), true);
+        $result = $this->restHandler->run($data, $type, $subject, strtolower($request->getMethod()));
 
         return $this->json($result);
     }
@@ -132,10 +133,11 @@ class RestController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $rdfType = trim($request->request->get('@type'), '<>');
+        $data = \json_decode($request->getContent(), true);
+        $rdfType = trim($data['@type'], '<>');
         $type = $this->typeFactory->getTypeByRdf($rdfType);
 
-        $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
+        $result = $this->restHandler->run($data, $type, null, RestService::HTTP_POST);
 
         if (!is_null($result)) {
             return $this->json($result);
