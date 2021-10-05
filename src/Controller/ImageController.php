@@ -11,7 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Controller\FileController;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
