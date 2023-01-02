@@ -16,6 +16,7 @@ use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Controller\FileController;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
